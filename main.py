@@ -1,15 +1,19 @@
-import requests
-from bs4 import BeautifulSoup
+from wordcloud import WordCloud, STOPWORDS
+import numpy as np
+import matplotlib.pyplot as plt
+import PIL.Image
 
-try:
-    response = requests.get('https://en.wikipedia.org/wiki/Python_(programming_language)')
-    response.raise_for_status()  # Raise an exception for HTTP errors
-    html = response.text
 
-    # Use BeautifulSoup to parse the HTML and extract text content
-    soup = BeautifulSoup(html, 'html.parser')
-    text = soup.get_text()
 
-    print(text)
-except requests.exceptions.RequestException as e:
-    print(f"An error occurred: {e}")
+text = open('pythontext.txt', 'r').read()
+
+python_mask = np.array(PIL.Image.open("pyhonlogo.png"))
+
+wc = WordCloud(stopwords=STOPWORDS,
+               mask=python_mask,
+               background_color="white").generate(text)
+
+
+plt.imshow(wc)
+plt.axis("off")
+plt.show()
