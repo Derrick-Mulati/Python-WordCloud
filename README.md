@@ -1,1 +1,1 @@
-# Python-wordCloud
+# Python-WordCloud
